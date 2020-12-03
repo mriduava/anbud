@@ -1,4 +1,4 @@
-import Home from './Home.js'
+import Home from './views/Home.js'
 
 export default{
     name: "app",
@@ -9,4 +9,7 @@ export default{
         <div id="app">
             <Home/>   
         </div>`,
+    created() {
+        this.$store.dispatch('fetchAllMessages')
+    },
 }

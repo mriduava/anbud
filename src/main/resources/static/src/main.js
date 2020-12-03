@@ -1,4 +1,4 @@
-import App from './views/App.js'
+import App from './App.js'
 import {store} from './store.js'
 import {router} from './router.js'
 

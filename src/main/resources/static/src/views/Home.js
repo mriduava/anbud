@@ -8,5 +8,10 @@ export default{
       <div>
         <h2>HOME</h2>
       </div>
-    `
+    `,
+    computed:{
+      messages(){
+        return this.$store.messages
+      }
+    }
   }
