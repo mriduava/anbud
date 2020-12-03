@@ -1,17 +1,16 @@
-import {store} from '../store.js'
+import MessageList from '../components/MessageList.js'
 
 export default{
-    store,
     name: "home",
-    components: {},
+    components: {
+      MessageList
+    },
     template:`
       <div>
         <h2>HOME</h2>
+        <MessageList/>
       </div>
     `,
     computed:{
-      messages(){
-        return this.$store.messages
-      }
     }
   }
