@@ -5,6 +5,9 @@ export const store = new Vuex.Store({
     mutations:{
         setMessages(state, messages){
             state.messages = messages
+        },
+        prependMessage(state, message){
+            state.messages.unshift(message)
         }
     },
     actions:{
