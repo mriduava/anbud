@@ -1,10 +1,12 @@
 package com.mriduava.anbud.services;
 
+import com.mriduava.anbud.dtos.SocketDTO;
 import com.mriduava.anbud.entities.Message;
 import com.mriduava.anbud.repositories.MessageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 
 @Service
@@ -20,11 +22,12 @@ public class MessageService {
         return messageRepo.findAll();
     }
 
+
     public boolean postNewMessage(Message message) {
+        message.setTimestamp(Instant.now().toEpochMilli());
         Message savedMessage = messageRepo.save(message);
-        socketService.sendToAll(savedMessage);
+        SocketDTO socketMessage = new SocketDTO("message", savedMessage);
+        socketService.sendToAll(socketMessage);
         return savedMessage.getId() > 0;
     }
-
-
 }
