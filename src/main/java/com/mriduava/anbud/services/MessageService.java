@@ -13,12 +13,17 @@ public class MessageService {
     @Autowired
     MessageRepo messageRepo;
 
+    @Autowired
+    SocketService socketService;
+
     public List<Message> getAllMessages() {
         return messageRepo.findAll();
     }
 
-    public Message postNewMessage(Message message) {
-        return messageRepo.save(message);
+    public boolean postNewMessage(Message message) {
+        Message savedMessage = messageRepo.save(message);
+        socketService.sendToAll(savedMessage);
+        return savedMessage.getId() > 0;
     }
 
 

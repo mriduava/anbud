@@ -26,8 +26,12 @@ public class SocketService {
         sendToOne(webSocketSession, json);
     }
 
-    public void sendToAll(Object obj) throws JsonProcessingException {
-        sendToAll(objectMapper.writeValueAsString(obj));
+    public void sendToAll(Object obj) {
+        try {
+            sendToAll(objectMapper.writeValueAsString(obj));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
     }
 
     public void sendToAll(String message) {
