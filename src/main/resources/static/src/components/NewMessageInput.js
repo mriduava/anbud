@@ -26,9 +26,8 @@ export default {
           headers: { 'Content-Type': 'application/json'},
           body: JSON.stringify(message)
       })
-      res = await res.json()
-
-      this.$store.commit('prependMessage', res)
+      // res = await res.json()
+      // this.$store.commit('prependMessage', res)
         
     }
   }

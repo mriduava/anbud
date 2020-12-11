@@ -1,14 +1,39 @@
+import {store} from './store.js'
+
 let ws;
 let isConnected = false;
 connect();
 
 function connect() {
     ws = new WebSocket('ws://localhost:9000/data-socket');
+    
     ws.onmessage = (e) => {
-      showSomething(e.data);
+        let dataWrapper;
+        try {
+            dataWrapper = JSON.parse(e.data)
+        } catch {
+            console.warn('Could not parse:', e.data);
+            return
+        }
+    
+        switch(dataWrapper.action) {
+            case 'message':
+                console.log('New message:', dataWrapper.payload);
+                store.commit('prependMessage', dataWrapper.payload)
+                break;
+            case 'user-status':
+                console.log('New status change:', dataWrapper.payload);
+                break;
+            default:
+                console.log('Could not read action:', dataWrapper.action);
+        }
     }
+
     ws.onopen = (e) => {
-        sendSomething();
+        send({
+            action: 'connection',
+            payload: 'user connected'
+        });
         isConnected = true;
     };
 
@@ -27,10 +52,18 @@ function disconnect() {
     console.log("Disconnected");
 }
 
-function sendSomething() {
-    ws.send(JSON.stringify({firstname: "Hello World!" }));
+function send(data) {
+    ws.send(JSON.stringify(data));
 }
 
-function showSomething(message) {
-    console.log(message);
+function sendMessage(message) {
+    send({
+        action: 'message',
+        payload: message
+    })
+}
+
+export {
+    send, 
+    sendMessage
 }

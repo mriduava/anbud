@@ -1,0 +1,35 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#app {
+  display: flex;
+  position: relative;
+  height: 100vh;
+  flex-direction: column; 
+  font-family: 'Roboto', sans-serif;
+}
+
+#footer{
+  flex: 1;
+  position: absolute;
+  bottom: 0;
+  background-color: rgba(204, 204, 204, 0.767);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+::-webkit-scrollbar {
+    width: 7px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 7px;
+    background: #a4b1b0;
+}
+

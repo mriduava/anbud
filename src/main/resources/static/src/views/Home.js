@@ -1,18 +1,21 @@
+import Navbar from '../components/Navbar.js'
 import MessageList from '../components/MessageList.js'
 import NewMessageInput from '../components/NewMessageInput.js'
+import Foot from '../components/Footer.js'
 
 export default {
   components: {
+    Navbar,
     MessageList,
-    NewMessageInput
+    NewMessageInput,
+    Foot
   },
   template: `
     <div>
-      <h2>Home Page</h2>
-
+      <Navbar/>
       <NewMessageInput />
       <MessageList />
-
+      <Foot/>
     </div>
     `
 }
