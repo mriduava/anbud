@@ -28,12 +28,8 @@ public class SocketController extends TextWebSocketHandler {
 
         switch (socketDTO.action) {
             case "message":
-                socketService.saveNewMessage(
-                        objectMapper.readValue(
-                                objectMapper.writeValueAsString(socketDTO.payload)
-                                , Message.class)
-                );
-
+                Message msg = convertPayload(socketDTO.payload, Message.class);
+                socketService.saveNewMessage(msg);
                 break;
             case "connection":
                 System.out.println("User connected");
@@ -53,5 +49,16 @@ public class SocketController extends TextWebSocketHandler {
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
         socketService.removeSession(session);
+    }
+
+    private <T> T convertPayload(Object object, Class<T> type) {
+        T t = null;
+        try {
+            t = objectMapper.readValue(objectMapper.writeValueAsString(object), type);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return t;
     }
 }
