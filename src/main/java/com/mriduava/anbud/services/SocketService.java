@@ -2,6 +2,8 @@ package com.mriduava.anbud.services;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mriduava.anbud.entities.Message;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -14,6 +16,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class SocketService {
 
     ObjectMapper objectMapper = new ObjectMapper();
+
+    @Autowired
+    MessageService messageService;
 
     private List<WebSocketSession> sessions = new CopyOnWriteArrayList<>();
 
@@ -51,5 +56,9 @@ public class SocketService {
 
     public void removeSession(WebSocketSession session) {
         sessions.remove(session);
+    }
+
+    public void saveNewMessage(Message message) {
+        messageService.postNewMessage(message);
     }
 }
