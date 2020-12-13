@@ -12,7 +12,7 @@ export default {
             this.auth2.grantOfflineAccess().then(this.signInCallback);
         },
         async signInCallback(authResult) {
-            console.log('authResult', authResult);
+            console.log('Auth Result: ', authResult);
           
             if (authResult['code']) {
               let result = await fetch('/storeauthcode', {
@@ -24,7 +24,7 @@ export default {
                 body: authResult['code']
               });
               if(result.ok) {
-                  let user = await fetch('/mypage')
+                  let user = await fetch('/')
                   user = await user.json()
                   this.$store.commit('setUser', user)
               }
@@ -34,7 +34,7 @@ export default {
           }
     },
     created() {
-        const CLIENT_ID = "REPLACE_THIS_WITH_YOUR_CLIENT_ID.apps.googleusercontent.com";
+        const CLIENT_ID = "381472079955-jah68q207j1o6hpsevb4u3niqc79ud81.apps.googleusercontent.com";
         gapi.load('auth2', () => {
             this.auth2 = gapi.auth2.init({
               client_id: CLIENT_ID,
