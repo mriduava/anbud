@@ -12,7 +12,7 @@ export default {
             this.auth2.grantOfflineAccess().then(this.signInCallback);
         },
         async signInCallback(authResult) {
-            console.log('Auth Result: ', authResult);
+            // console.log('Auth Result: ', authResult);
           
             if (authResult['code']) {
               let result = await fetch('/storeauthcode', {

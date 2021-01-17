@@ -1,9 +1,10 @@
 export default {
   template:`
     <div class="message-item">
-      sender: {{message.sender}}<br>
-      content: {{message.content}}<br>
-      time: {{time}}<br>
+      <hr/>
+      <h6 class="text-info">{{message.sender}}</h6>
+      <p class="" style="font-size: 10px">{{time}}</p>
+      <p class="pb-0">{{message.content}}</p>
     </div>
   `,
   props: ['message'],

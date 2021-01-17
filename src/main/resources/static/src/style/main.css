@@ -7,15 +7,12 @@
 #app {
   display: flex;
   position: relative;
-  height: 100vh;
   flex-direction: column; 
   font-family: 'Roboto', sans-serif;
 }
 
-#footer{
-  flex: 1;
-  bottom: 0;
-  background-color: rgba(204, 204, 204, 0.767);
+.middle-body{
+  min-height: 83.3vh;
 }
 
 html {
@@ -31,4 +28,58 @@ html {
     border-radius: 7px;
     background: #a4b1b0;
 }
+
+#chat {
+  display: none;
+}
+
+#chat:checked~
+.chat-container{
+  opacity: 1
+}
+
+.chat-btn {
+  position: fixed;
+  right: 20px;
+  bottom: 50px;
+  z-index: 1;
+  cursor: pointer
+}
+
+.chat-btn {
+  width: 40px;
+  height: 40px;
+  font-size: 14px;
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  background-color: rgb(36, 36, 36);
+}
+
+.chat-container {
+  width: 300px;
+  max-height: 400px;
+  position: fixed;
+  right: 20px;
+  bottom: 100px;
+  z-index: 1;
+  border-radius: 5px;
+  opacity: 0;
+  transition: all 0.4s;
+  background-color: rgb(36, 36, 36);
+}
+
+.message-box{
+  width: 282px;
+  max-height: 200px;
+  padding: 10px;
+  overflow: scroll;
+  background-color: rgb(235, 235, 235);
+}
+
+#footer{
+  flex: 1;
+  text-align: center;
+}
+
 
