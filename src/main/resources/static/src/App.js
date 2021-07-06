@@ -1,7 +1,7 @@
 import Home from './views/Home.js'
-import Navbar from './components/Navbar.js'
-import Footer from './components/Footer.js'
-import ChatBox from './components/ChatBox.js'
+import Navbar from './components/partials/Navbar.js'
+import Footer from './components/partials/Footer.js'
+import ChatBox from './components/chat/ChatBox.js'
 
 export default{
     name: "app",
@@ -21,6 +21,7 @@ export default{
             <Footer/> 
         </div>`,
     created() {
-        this.$store.dispatch('fetchAllMessages')
+        this.$store.dispatch('fetchAllMessages'),
+        this.$store.dispatch('fetchAllAuctionItems')
     },
 }

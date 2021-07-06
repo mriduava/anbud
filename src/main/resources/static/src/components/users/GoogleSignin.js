@@ -1,6 +1,6 @@
 export default {
     template: `
-        <button v-if="!$store.state.user" @click="signInUser">Sign in with Google</button>
+        <button v-if="!$store.state.user" @click="signInUser" class="px-3 btn btn-sm btn-outline-success">Sign in with Google</button>
     `,
     data() {
         return {

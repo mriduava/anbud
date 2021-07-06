@@ -1,12 +1,12 @@
-import UserRegistration from '../components/UserRegistration.js'
+import GoogleSignin from '../components/users/GoogleSignin.js'
 
 export default {
   components: {
-    UserRegistration
+    GoogleSignin
   },
   template: `
-    <div>
-      <UserRegistration/>
+    <div class="d-flex justify-content-center mt-5">
+      <GoogleSignin/>
     </div>
   `
   }
