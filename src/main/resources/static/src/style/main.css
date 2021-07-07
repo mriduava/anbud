@@ -83,6 +83,20 @@ html {
   object-fit: cover;
 }
 
+.item-detail-img {
+  width: 100%;
+  height: 25vw;
+  object-fit: cover;
+}
+
+.item-card{
+  cursor: pointer;
+}
+
+.item-card:hover{
+  box-shadow: #a4b1b0;
+}
+
 #footer{
   flex: 1;
   text-align: center;
