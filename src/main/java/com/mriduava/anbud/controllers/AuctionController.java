@@ -7,20 +7,26 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/rest/auctions")
+@RequestMapping
 public class AuctionController {
 
     @Autowired
     AuctionService auctionService;
 
-    @GetMapping
-    public List<AuctionItem> getAllAuctions() {
-        return auctionService.getAllAuctions();
+    @GetMapping("/rest/auctions")
+    public List<AuctionItem> getAllItems() {
+        return auctionService.getAllItems();
     }
 
-    @PostMapping
+    @GetMapping("/rest/auctions/{id}")
+    public Optional<AuctionItem> getOneItem(@PathVariable Long id) {
+        return auctionService.getOneItem(id);
+    }
+
+    @PostMapping("/rest/auctions")
     public ResponseEntity<Boolean> postNewAuction(@RequestBody AuctionItem auctionItem) {
         boolean isSaved = auctionService.postNewAuction(auctionItem);
         return ResponseEntity.ok(isSaved);

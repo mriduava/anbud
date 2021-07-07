@@ -7,6 +7,7 @@ export default {
           <img :src="item.item_image" class="card-img-top" alt="mriduava@gmail.com" style={{height:250px]}>
           <div class="card-body">
             <h5 class="card-title">{{item.item_name}}</h5>
+            <h6 class="card-title">{{item.user.name}}</h6>
           </div>
           <ul class="list-group list-group-flush">
             <li class="list-group-item">Price: {{item.initial_price}} SEK</li>

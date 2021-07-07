@@ -9,7 +9,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "auction_items")
 
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
