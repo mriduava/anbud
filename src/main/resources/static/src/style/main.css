@@ -35,7 +35,7 @@ html {
 
 #chat:checked~
 .chat-container{
-  opacity: 1
+  display: block;
 }
 
 .chat-btn {
@@ -62,9 +62,8 @@ html {
   position: fixed;
   right: 20px;
   bottom: 100px;
-  z-index: 1;
   border-radius: 5px;
-  opacity: 0;
+  display: none;
   transition: all 0.4s;
   background-color: rgb(36, 36, 36);
 }
@@ -89,12 +88,12 @@ html {
   object-fit: cover;
 }
 
-.item-card{
-  cursor: pointer;
+#item-card{
+  border: 1px solid sandybrown;
 }
 
-.item-card:hover{
-  box-shadow: #a4b1b0;
+#item-card:hover{
+  box-shadow: 1px 5px 20px #888888;
 }
 
 #footer{

@@ -1,4 +1,4 @@
-import ItemList from '../components/items/ItemList.js'
+import ItemList from '../components/auction/ItemList.js'
 
 export default {
   components: {
