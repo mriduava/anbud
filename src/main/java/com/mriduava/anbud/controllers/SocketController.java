@@ -2,6 +2,7 @@ package com.mriduava.anbud.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mriduava.anbud.dtos.SocketDTO;
+import com.mriduava.anbud.entities.AuctionItem;
 import com.mriduava.anbud.entities.Message;
 import com.mriduava.anbud.services.SocketService;
 import org.springframework.stereotype.Controller;
@@ -24,12 +25,18 @@ public class SocketController extends TextWebSocketHandler {
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) throws IOException {
         System.out.println("Received msg: " + message.getPayload());
+
         SocketDTO socketDTO = objectMapper.readValue(message.getPayload(), SocketDTO.class);
+       /* AuctionSocketDTO socketDTO = objectMapper.readValue(message.getPayload(), AuctionSocketDTO.class);*/
 
         switch (socketDTO.action) {
             case "message":
                 Message msg = convertPayload(socketDTO.payload, Message.class);
                 socketService.saveNewMessage(msg);
+                break;
+            case "auction":
+                AuctionItem auctionItem = convertPayload(socketDTO.payload, AuctionItem.class);
+                socketService.saveNewAuction(auctionItem);
                 break;
             case "connection":
                 System.out.println("User connected");

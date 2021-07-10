@@ -29,6 +29,10 @@ html {
     background: #a4b1b0;
 }
 
+.nav-item:hover{
+  color: rgb(104, 104, 104);
+}
+
 #chat {
   display: none;
 }

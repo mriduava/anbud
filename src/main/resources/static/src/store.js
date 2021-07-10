@@ -1,8 +1,7 @@
 export const store = new Vuex.Store({
     state: { 
         messages: [],
-        auctions: [],
-        oneitem: []
+        auctions: []
     },
     mutations:{
         setMessages(state, messages){
@@ -14,12 +13,9 @@ export const store = new Vuex.Store({
         setAuctions(state, auctions){
             state.auctions = auctions
         },
-        prependAuctions(state, auctions){
-            state.auctions.unshift(auctions)
-        },
-        setOneItem(state, oneitem){
-            state.oneitem = oneitem
-        },
+        prependAuction(state, auction){
+            state.auctions.unshift(auction)
+        }
     },
     actions:{
         async fetchAllMessages(store){
@@ -31,12 +27,6 @@ export const store = new Vuex.Store({
             let auctions = await fetch('/rest/auctions')
             auctions = await auctions.json()
             store.commit('setAuctions', auctions)
-        },
-        async fetchOneAuctionItem(store, id){
-            let oneitem = await fetch('/rest/auctions/' + id)
-            oneitem = await oneitem.json()
-            console.log(oneitem);
-            store.commit('setOneItem', oneitem)
         }
     }
 })

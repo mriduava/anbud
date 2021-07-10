@@ -2,6 +2,7 @@ package com.mriduava.anbud.services;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mriduava.anbud.entities.AuctionItem;
 import com.mriduava.anbud.entities.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,8 @@ public class SocketService {
 
     @Autowired
     MessageService messageService;
+    @Autowired
+    AuctionService auctionService;
 
     private List<WebSocketSession> sessions = new CopyOnWriteArrayList<>();
 
@@ -60,5 +63,9 @@ public class SocketService {
 
     public void saveNewMessage(Message message) {
         messageService.postNewMessage(message);
+    }
+
+    public void saveNewAuction(AuctionItem auctionItem) {
+        auctionService.postNewAuction(auctionItem);
     }
 }

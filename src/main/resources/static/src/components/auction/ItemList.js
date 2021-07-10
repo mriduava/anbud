@@ -2,7 +2,7 @@ export default {
   template:`
   <div class="container">
     <div class="row mt-4">
-      <div class="col-lg-4" v-for="(item, index) in items" :key="index">
+      <div class="col-lg-4 col-md-6" v-for="(item, index) of items" :key="index">
         <router-link :to="'/' + item.id" style="text-decoration: none; color: inherit;">
           <div id="item-card" class="card my-3">
             <img :src="item.item_image" class="card-img-top" alt="mriduava@gmail.com" style={{height:250px]}>
@@ -29,5 +29,8 @@ export default {
     converttime(timestamp){
       return new Date(timestamp).toLocaleString()
     }
+  },
+  created() {
+    this.$store.dispatch('fetchAllAuctionItems')
   }
 }

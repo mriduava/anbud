@@ -1,6 +1,6 @@
 package com.mriduava.anbud.services;
 
-import com.mriduava.anbud.dtos.AuctionSocketDTO;
+import com.mriduava.anbud.dtos.SocketDTO;
 import com.mriduava.anbud.entities.AuctionItem;
 import com.mriduava.anbud.repositories.AuctionRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +27,12 @@ public class AuctionService {
 
     public boolean postNewAuction(AuctionItem auctionItem) {
         AuctionItem savedAuction = auctionRepo.save(auctionItem);
-        AuctionSocketDTO socketData = new AuctionSocketDTO("data", savedAuction);
+        SocketDTO socketData = new SocketDTO("auction", savedAuction);
         socketService.sendToAll(socketData);
+
+        /*AuctionSocketDTO socketData = new AuctionSocketDTO("auction", savedAuction);
+        socketService.sendToAll(socketData);*/
+
         return savedAuction.getId() > 0;
     }
 }

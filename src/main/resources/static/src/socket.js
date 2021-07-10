@@ -2,9 +2,8 @@ import {store} from './store.js'
 
 let ws;
 let isConnected = false;
-connect();
 
-function connect() {
+const connect = () => {
     ws = new WebSocket('ws://localhost:9000/data-socket');
     
     ws.onmessage = (e) => {
@@ -20,6 +19,10 @@ function connect() {
             case 'message':
                 console.log('New message:', dataWrapper.payload);
                 store.commit('prependMessage', dataWrapper.payload)
+                break;
+            case 'auction':
+                console.log('New auction:', dataWrapper.payload);
+                store.commit('prependAuction', dataWrapper.payload)
                 break;
             case 'user-status':
                 console.log('New status change:', dataWrapper.payload);
@@ -44,7 +47,9 @@ function connect() {
   console.log("Connecting...");
 }
 
-function disconnect() {
+connect();
+
+const disconnect = () => {
     if (ws != null) {
         ws.close();
     }
@@ -52,18 +57,26 @@ function disconnect() {
     console.log("Disconnected");
 }
 
-function send(data) {
+const send = (data) => {
     ws.send(JSON.stringify(data));
 }
 
-function sendMessage(message) {
+const sendMessage = (message) => {
     send({
         action: 'message',
         payload: message
     })
 }
 
+const sendAuctionItem = (newitem) => {
+    send({
+        action: 'auction',
+        payload: newitem
+    })
+}
+
 export {
     send, 
-    sendMessage
+    sendMessage,
+    sendAuctionItem
 }

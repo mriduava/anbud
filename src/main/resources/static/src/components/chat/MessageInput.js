@@ -3,9 +3,9 @@ import { sendMessage } from '../../socket.js'
 export default {
     template: `
         <form @submit.prevent="newMessage">
-            <input v-model="username" style="width: 80px" placeholder="sender">
-            <input v-model="messageText" placeholder="type new message..">
-            <button>SUBMIT</button>
+            <input type="text" v-model="username" class="mt-2 form-control" placeholder="Name"> 
+            <input type="text" v-model="messageText" class="form-control mt-1" placeholder="Your message"/>
+            <button class="btn btn-outline-success btn-block mt-2">Submit</button> 
         </form>
     `,
     data() {
@@ -25,7 +25,7 @@ export default {
         }
     },
     methods: {
-        async newMessage() {
+        newMessage: function () {
             let message = {
                 sender: this.username,
                 content: this.messageText,
@@ -34,7 +34,7 @@ export default {
 
             // clear input
             this.messageText = ''
-
+            console.log("CHAT MESSAGE", message);
             // send message with websocket
             sendMessage(message)
         }

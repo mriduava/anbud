@@ -15,10 +15,10 @@ export default {
              <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
            
               <li class="nav-item mt-2 mr-3">
-                <router-link to="/newauction" style="text-decoration: none; color: inherit;"><h4>Create Ad</h4></router-link>
+                <router-link to="/newauction" style="text-decoration: none; color: inherit;"><h5>Create Ad</h5></router-link>
               </li>
               <li class="nav-item mt-2">
-                <router-link to="/register" style="text-decoration: none; color: inherit;"><h4>Sign in</h4></router-link>
+                <router-link to="/register" style="text-decoration: none; color: inherit;"><h5>Sign in</h5></router-link>
               </li>
             </ul>
           </div>

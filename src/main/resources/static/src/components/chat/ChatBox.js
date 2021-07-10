@@ -1,10 +1,10 @@
 import MessageList from './MessageList.js'
-import NewMessageInput from './NewMessageInput.js'
+import MessageInput from './MessageInput.js'
 
 export default {
   components: {
     MessageList,
-    NewMessageInput,
+    MessageInput,
   },
   template: `
     <div>
@@ -18,9 +18,7 @@ export default {
           <div class="message-box">
             <MessageList />
           </div>
-          <input type="text" class="mt-2 form-control" placeholder="Name"> 
-          <input type="text" class="form-control mt-1" placeholder="Your message"/>
-          <button class="btn btn-outline-success btn-block mt-2">Submit</button> 
+          <MessageInput/>
         </div>
       </div>
     </div>
