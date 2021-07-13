@@ -23,6 +23,9 @@ export default {
   computed:{
     items(){
       return this.$store.state.auctions
+    },
+    bids(){
+       return this.$store.state.bids
     }
   },
   methods:{
@@ -31,6 +34,7 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch('fetchAllAuctionItems')
+    this.$store.dispatch('fetchAllAuctionItems'),
+    this.$store.dispatch('fetchAllBids')
   }
 }

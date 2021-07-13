@@ -22,16 +22,33 @@ export default {
             v-bind:style="{'cursor': 'pointer', 'outline': 'none'}"/>
         </div>
       </div>
+      <div class="col-lg-3 rounded border">
+        <div class="d-flex justify-content-between mt-3">
+          <h5>Bidder</h5>
+          <h5>All Bids</h5>
+        </div>
+        <hr />
+        <div v-for="(bid, index) in bidsList" :key="index">
+          <div class="d-flex justify-content-between">
+            <h6 class="text-capitalize">{{bid.bidder.name}}</h6>
+            <h6>{{bid.bid}} SEK</h6>
+          </div>       
+        </div>
+      </div>
     </div>
-    <div class="col-lg-3">
 
-    </div>
   </div>
   `,
   data() {
     return {
-      oneitem: {}
+      oneitem: {},
+      bidsList: []
     };
+  },
+  computed:{
+    bids(){
+       return this.$store.state.bids
+    }
   },
   methods:{          
     async fetchOneAuctionItem(){
@@ -40,9 +57,22 @@ export default {
       oneitem = await oneitem.json()
       this.oneitem = oneitem;
       console.log(oneitem);
+    },
+    getBidderInfo(){
+      let id = this.$route.params.id;
+      console.log("ID: ", id);
+      console.log("ALL BIDS: ", this.bids);
+      for (let bid of this.bids) {
+        if (+bid.auction_id == id) {
+          console.log('MY BID: ', bid);
+          this.bidsList.push(bid)
+        }        
+      }
     }
   },
   created() {
-    this. fetchOneAuctionItem();
+    this.getBidderInfo()
+    this.fetchOneAuctionItem();
+    this.$store.dispatch('fetchAllBids')
   }
 }

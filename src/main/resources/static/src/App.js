@@ -22,6 +22,5 @@ export default{
         </div>`,
     created() {
         this.$store.dispatch('fetchAllMessages')
-        // this.$store.dispatch('fetchAllAuctionItems')
     },
 }
