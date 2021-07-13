@@ -4,7 +4,7 @@ let ws;
 let isConnected = false;
 
 const connect = () => {
-    ws = new WebSocket('ws://localhost:9000/data-socket');
+    ws = new WebSocket('ws://localhost:9000/anbudsocket');
     
     ws.onmessage = (e) => {
         let dataWrapper;

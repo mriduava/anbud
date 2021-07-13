@@ -22,9 +22,11 @@ public class AuctionItem {
     private int owner_id;
     private String item_image;
     private int initial_price;
+    private int highest_bid;
     private long start_date;
     private long stop_date;
     @OneToOne
     @JoinColumn(name = "owner_id", updatable=false, insertable = false)
-    private User user;
+    private User owner;
+
 }

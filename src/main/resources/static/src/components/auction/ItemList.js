@@ -8,7 +8,7 @@ export default {
             <img :src="item.item_image" class="card-img-top" alt="mriduava@gmail.com" style={{height:250px]}>
             <div class="card-body">
               <h5 class="card-title">{{item.item_name}}</h5>
-              <h6 class="text-secondary">Seller: <span class="text-uppercase text-success">{{item.user.name}}</span></h6>
+              <h6 class="text-secondary">Seller: <span class="text-uppercase text-success">{{item.owner.name}}</span></h6>
             </div>
             <ul class="list-group">
               <li class="list-group-item">{{item.initial_price}} SEK</li>

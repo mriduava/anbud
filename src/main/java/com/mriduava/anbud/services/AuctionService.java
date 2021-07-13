@@ -29,10 +29,6 @@ public class AuctionService {
         AuctionItem savedAuction = auctionRepo.save(auctionItem);
         SocketDTO socketData = new SocketDTO("auction", savedAuction);
         socketService.sendToAll(socketData);
-
-        /*AuctionSocketDTO socketData = new AuctionSocketDTO("auction", savedAuction);
-        socketService.sendToAll(socketData);*/
-
         return savedAuction.getId() > 0;
     }
 }

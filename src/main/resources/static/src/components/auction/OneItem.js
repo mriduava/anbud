@@ -7,7 +7,7 @@ export default {
          <div class="mt-3">
            <h4 class="text-dark">{{oneitem.item_name}}</h4>
            <hr />
-           <h5 class="text-secondary">Seller: <span class="text-uppercase text-success">{{oneitem.user.name}}</span></h5>
+           <h5 class="text-secondary">Seller: <span class="text-uppercase text-success">{{oneitem.owner.name}}</span></h5>
          </div>
       </div>
       <div class="col-lg-3 bg-light rounded border">

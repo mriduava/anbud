@@ -18,6 +18,6 @@ public class WebSocketConfig implements WebSocketConfigurer {
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
         SocketController sc = new SocketController();
         sc.setSocketService(socketService);
-        registry.addHandler(sc, "/data-socket");
+        registry.addHandler(sc, "/anbudsocket");
     }
 }
