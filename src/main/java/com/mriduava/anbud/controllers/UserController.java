@@ -5,19 +5,47 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RestController;
+import com.mriduava.anbud.entities.User;
+import com.mriduava.anbud.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
-
+import static org.springframework.security.web.context.HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY;
 
 @RestController
 public class UserController {
     final String CLIENT_ID = "381472079955-jah68q207j1o6hpsevb4u3niqc79ud81.apps.googleusercontent.com";
     final String CLIENT_SECRET = "K8f5M0PIq6PvubQYUWgwarh2";
+
+    final String passwordSalt = "keyboard-kitten";
+
+    @Autowired
+    UserService userService;
+
+    @Resource(name="authenticationManager")
+    private AuthenticationManager authManager;
+
+    @GetMapping("/currentuser")
+    public ResponseEntity<User> currentUser() {
+        User user = userService.findCurrentUser();
+        if(user == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND); // 404
+        }
+
+        return ResponseEntity.ok(user);
+    }
 
     @PostMapping("/storeauthcode")
     public String storeauthcode(@RequestBody String code, @RequestHeader("X-Requested-With") String encoding, HttpServletRequest req) {
@@ -40,17 +68,10 @@ public class UserController {
             e.printStackTrace();
         }
 
-        // Store these 3 in DB
         String accessToken = tokenResponse.getAccessToken();
         String refreshToken = tokenResponse.getRefreshToken();
         Long expiresAt = System.currentTimeMillis() + (tokenResponse.getExpiresInSeconds() * 1000);
 
-        // Debug purpose only
-        System.out.println("Access Token: " + accessToken);
-        System.out.println("Refresh Token: " + refreshToken);
-        System.out.println("Expires at: " + expiresAt);
-
-        // Get profile info from ID token (Obtained at the last step of OAuth2)
         GoogleIdToken idToken = null;
         try {
             idToken = tokenResponse.parseIdToken();
@@ -59,7 +80,6 @@ public class UserController {
         }
         GoogleIdToken.Payload payload = idToken.getPayload();
 
-        // Use THIS ID as a key to identify a google user-account.
         String userId = payload.getSubject();
 
         String email = payload.getEmail();
@@ -70,17 +90,27 @@ public class UserController {
         String familyName = (String) payload.get("family_name");
         String givenName = (String) payload.get("given_name");
 
-        // Debugging purposes, should probably be stored in the database instead (At least "givenName").
-        System.out.println("userId: " + userId);
-        System.out.println("email: " + email);
-        System.out.println("emailVerified: " + emailVerified);
-        System.out.println("name: " + name);
-        System.out.println("pictureUrl: " + pictureUrl);
-        System.out.println("locale: " + locale);
-        System.out.println("familyName: " + familyName);
-        System.out.println("givenName: " + givenName);
-
+        String password = email + passwordSalt + userId;
+        userService.registerUser(name, email, pictureUrl, password);
+        securityLogin(email, password, req);
         return "OK";
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody User user, HttpServletRequest req) {
+        securityLogin(user.getEmail(), user.getPassword(), req);
+        return ResponseEntity.ok("ok");
+    }
+
+    private void securityLogin(String email, String password, HttpServletRequest req) {
+        UsernamePasswordAuthenticationToken authReq
+                = new UsernamePasswordAuthenticationToken(email, password);
+        Authentication auth = authManager.authenticate(authReq);
+
+        SecurityContext sc = SecurityContextHolder.getContext();
+        sc.setAuthentication(auth);
+        HttpSession session = req.getSession(true);
+        session.setAttribute(SPRING_SECURITY_CONTEXT_KEY, sc);
     }
 
 }

@@ -30,8 +30,6 @@ public class MyUserDetailsService implements UserDetailsService {
     public User addUser(String name, String email, String pictureUrl, String password){
         User dbUser = userRepo.findByEmail(email);
         if(dbUser != null) {
-            System.out.println("Password match: " + encoder.matches(password, dbUser.getPassword()));
-            System.out.println("User exists: " + dbUser);
             return dbUser;
         }
 
@@ -45,8 +43,6 @@ public class MyUserDetailsService implements UserDetailsService {
     }
 
     private UserDetails toUserDetails(User user) {
-        // If you have a User entity you have to
-        // use the userdetails User for this to work
         return org.springframework.security.core.userdetails.User
                 .withUsername(user.getEmail())
                 .password(user.getPassword())

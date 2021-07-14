@@ -10,23 +10,23 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping
+@RequestMapping("/rest/auctions")
 public class AuctionController {
 
     @Autowired
     AuctionService auctionService;
 
-    @GetMapping("/rest/auctions")
+    @GetMapping
     public List<AuctionItem> getAllItems() {
         return auctionService.getAllItems();
     }
 
-    @GetMapping("/rest/auctions/{id}")
+    @GetMapping("/{id}")
     public Optional<AuctionItem> getOneItem(@PathVariable Long id) {
         return auctionService.getOneItem(id);
     }
 
-    @PostMapping("/rest/auctions")
+    @PostMapping
     public ResponseEntity<Boolean> postNewAuction(@RequestBody AuctionItem auctionItem) {
         boolean isSaved = auctionService.postNewAuction(auctionItem);
         return ResponseEntity.ok(isSaved);
