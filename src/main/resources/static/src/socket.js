@@ -24,6 +24,10 @@ const connect = () => {
                 console.log('New auction:', dataWrapper.payload);
                 store.commit('prependAuction', dataWrapper.payload)
                 break;
+            case 'bid':
+                console.log('New bid:', dataWrapper.payload);
+                store.commit('prependBid', dataWrapper.payload)
+                break;
             case 'user-status':
                 console.log('New status change:', dataWrapper.payload);
                 break;
@@ -75,8 +79,16 @@ const sendAuctionItem = (newitem) => {
     })
 }
 
+const sendBidData = (newbid) => {
+    send({
+        action: 'bid',
+        payload: newbid
+    })
+}
+
 export {
     send, 
     sendMessage,
-    sendAuctionItem
+    sendAuctionItem,
+    sendBidData
 }

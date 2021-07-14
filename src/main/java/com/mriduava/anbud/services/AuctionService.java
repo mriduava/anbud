@@ -28,7 +28,7 @@ public class AuctionService {
     public boolean postNewAuction(AuctionItem auctionItem) {
         AuctionItem savedAuction = auctionRepo.save(auctionItem);
         SocketDTO socketData = new SocketDTO("auction", savedAuction);
-        socketService.sendToAll(socketData);
+        socketService.sendToAllClient(socketData);
         return savedAuction.getId() > 0;
     }
 }

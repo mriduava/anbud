@@ -3,7 +3,6 @@ package com.mriduava.anbud.controllers;
 import com.mriduava.anbud.entities.Bid;
 import com.mriduava.anbud.services.BidService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,8 +26,8 @@ public class BidController {
     }
 
     @PostMapping("/rest/bids")
-    public ResponseEntity<Boolean> postNewBid(@RequestBody Bid bid) {
-        boolean isSaved = bidService.postNewBid(bid);
-        return ResponseEntity.ok(isSaved);
+    public Bid postNewBid(@RequestBody Bid bid) {
+        var isSaved = bidService.postNewBid(bid);
+        return bidService.postNewBid(bid);
     }
 }

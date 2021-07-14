@@ -1,4 +1,7 @@
+import { sendBidData } from '../../socket.js'
+
 export default {
+  name: "oneitem",
   template:`
   <div class="container">
     <div class="row mt-4">
@@ -11,27 +14,33 @@ export default {
          </div>
       </div>
       <div class="col-lg-3 bg-light rounded border">
-        <div class="d-flex justify-content-between mt-3">
-          <h5>Highest Bid</h5>
-          <h5>20 SEK</h5>
+        <div class="d-flex justify-content-between mt-3" v-if="bidsList.length === 0">
+          <h5 class="text-danger">Initial price</h5>
+          <h5 class="text-danger" >{{oneitem.initial_price}} SEK</h5>
         </div>
+        <div class="d-flex justify-content-between mt-3"  v-else>
+          <h5 class="text-danger">Highest bid</h5>
+          <h5 class="text-danger">{{highestBid}} SEK</h5>
+        </div>
+        <hr />
         <div class="d-flex flex-column mt-5">
-          <input type="text" class="p-1"/>
-          <input type="button" value="PLACE BID" 
-            class="mt-1 text-white bg-secondary py-1 rounded" 
-            v-bind:style="{'cursor': 'pointer', 'outline': 'none'}"/>
+          <h6 class="text-secondary">Put a value greater than the highest bid.</h6>
+          <form @submit.prevent="newBid(oneitem.id)">
+            <input type="text" v-model="bid" class="form-control mt-1" placeholder="Bid price"/>
+            <button class="btn btn-outline-success btn-sm btn-block mt-2 px-5">Submit</button> 
+          </form>
         </div>
       </div>
       <div class="col-lg-3 rounded border">
         <div class="d-flex justify-content-between mt-3">
-          <h5>Bidder</h5>
-          <h5>All Bids</h5>
+          <h5 class="text-secondary">Bidder</h5>
+          <h5 class="text-secondary">Bid (SEK)</h5>
         </div>
         <hr />
         <div v-for="(bid, index) in bidsList" :key="index">
           <div class="d-flex justify-content-between">
-            <h6 class="text-capitalize">{{bid.bidder.name}}</h6>
-            <h6>{{bid.bid}} SEK</h6>
+            <h6 class="text-capitalize text-info">{{bid.bidder.name}}</h6>
+            <h6 class="text-success">{{bid.bid}}</h6>
           </div>       
         </div>
       </div>
@@ -42,7 +51,9 @@ export default {
   data() {
     return {
       oneitem: {},
-      bidsList: []
+      highestBid: 0,
+      bidsList: [],
+      bid: ''
     };
   },
   computed:{
@@ -56,23 +67,39 @@ export default {
       let oneitem = await fetch('/rest/auctions/' + id)
       oneitem = await oneitem.json()
       this.oneitem = oneitem;
-      console.log(oneitem);
     },
     getBidderInfo(){
       let id = this.$route.params.id;
-      console.log("ID: ", id);
-      console.log("ALL BIDS: ", this.bids);
       for (let bid of this.bids) {
         if (+bid.auction_id == id) {
-          console.log('MY BID: ', bid);
           this.bidsList.push(bid)
         }        
       }
-    }
+    },
+    getHighestBid(){
+      this.highestBid = Math.max.apply(Math, this.bidsList.map(m => m.bid))
+    },
+    newBid(auctionId){
+      if (this.bid<=this.highestBid) {
+        alert(`Please write a value more than ${this.highestBid}`)
+      }else if(this.bid <= this.oneitem.initial_price ){
+        alert(`Please write a value more than ${this.oneitem.initial_price}`)
+      }else{
+        let data = {
+          auction_id: auctionId,
+          bid: +this.bid,
+          bidder_id: 3,
+          created_at: Date.now()
+        }
+        console.log('BID DATA: ', data);
+        sendBidData(data)
+      }
+    },
   },
   created() {
     this.getBidderInfo()
     this.fetchOneAuctionItem();
-    this.$store.dispatch('fetchAllBids')
+    this.$store.dispatch('fetchAllBids');
+    this.getHighestBid();
   }
 }

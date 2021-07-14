@@ -3,6 +3,7 @@ package com.mriduava.anbud.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mriduava.anbud.dtos.SocketDTO;
 import com.mriduava.anbud.entities.AuctionItem;
+import com.mriduava.anbud.entities.Bid;
 import com.mriduava.anbud.entities.Message;
 import com.mriduava.anbud.services.SocketService;
 import org.springframework.stereotype.Controller;
@@ -27,7 +28,6 @@ public class SocketController extends TextWebSocketHandler {
         System.out.println("Received msg: " + message.getPayload());
 
         SocketDTO socketDTO = objectMapper.readValue(message.getPayload(), SocketDTO.class);
-       /* AuctionSocketDTO socketDTO = objectMapper.readValue(message.getPayload(), AuctionSocketDTO.class);*/
 
         switch (socketDTO.action) {
             case "message":
@@ -37,6 +37,11 @@ public class SocketController extends TextWebSocketHandler {
             case "auction":
                 AuctionItem auctionItem = convertPayload(socketDTO.payload, AuctionItem.class);
                 socketService.saveNewAuction(auctionItem);
+                break;
+            case "bid":
+                Bid bid = convertPayload(socketDTO.payload, Bid.class);
+                System.out.println("Hello: " + bid);
+                socketService.saveNewBid(bid);
                 break;
             case "connection":
                 System.out.println("User connected");

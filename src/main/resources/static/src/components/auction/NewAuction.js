@@ -29,7 +29,7 @@ export default {
     computed: {
     },
     methods: {
-      newAuction: function () {
+      newAuction() {
         let data = {
           item_name: this.itemName,
           item_image: this.imageURL,

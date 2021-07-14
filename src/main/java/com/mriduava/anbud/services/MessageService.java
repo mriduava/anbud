@@ -22,12 +22,11 @@ public class MessageService {
         return messageRepo.findAll();
     }
 
-
     public boolean postNewMessage(Message message) {
         message.setTimestamp(Instant.now().toEpochMilli());
         Message savedMessage = messageRepo.save(message);
         SocketDTO socketMessage = new SocketDTO("message", savedMessage);
-        socketService.sendToAll(socketMessage);
+        socketService.sendToAllClient(socketMessage);
         return savedMessage.getId() > 0;
     }
 }

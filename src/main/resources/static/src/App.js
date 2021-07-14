@@ -21,6 +21,7 @@ export default{
             <Footer/> 
         </div>`,
     created() {
-        this.$store.dispatch('fetchAllMessages')
+        this.$store.dispatch('fetchAllMessages'),
+        this.$store.dispatch('fetchAllAuctionItems')
     },
 }

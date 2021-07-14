@@ -25,11 +25,16 @@ public class BidService {
         return bidRepo.findById(id);
     }
 
-    public boolean postNewBid(Bid bid) {
+    public List<Bid> findBidsByAuctionId(long auctionID) {
+        return bidRepo.findBidsByAuctionId(auctionID);
+    }
+
+    public Bid postNewBid(Bid bid) {
         Bid savedBid = bidRepo.save(bid);
         SocketDTO socketData = new SocketDTO("bid", savedBid);
-        socketService.sendToAll(socketData);
-        return savedBid.getId() > 0;
+        socketService.sendToAllClient(socketData);
+        return savedBid;
     }
+
 }
 

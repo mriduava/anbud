@@ -32,9 +32,9 @@ export default {
     converttime(timestamp){
       return new Date(timestamp).toLocaleString()
     }
-  },
-  created() {
-    this.$store.dispatch('fetchAllAuctionItems'),
-    this.$store.dispatch('fetchAllBids')
   }
+  // created() {
+  //   this.$store.dispatch('fetchAllAuctionItems'),
+  //   this.$store.dispatch('fetchAllBids')
+  // }
 }

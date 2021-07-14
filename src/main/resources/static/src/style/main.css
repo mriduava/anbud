@@ -82,13 +82,14 @@ html {
 
 .card-img-top {
   width: 100%;
-  height: 15vw;
+  min-height: 20vw;
   object-fit: cover;
 }
 
 .item-detail-img {
   width: 100%;
-  height: 25vw;
+  min-height: 25vw;
+  max-height: 30vw;
   object-fit: cover;
 }
 

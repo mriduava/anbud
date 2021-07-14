@@ -1,7 +1,7 @@
 Vue.use(VueRouter)
 
 import home from './views/Home.js'
-import item from './components/auction/OneItem.js'
+import oneitem from './components/auction/OneItem.js'
 import newitem from './components/auction/NewAuction.js'
 import register from './views/Register.js'
 
@@ -24,9 +24,9 @@ export const router = new VueRouter({
       component: newitem
     },
     {
-      name:"item",
+      name:"oneitem",
       path: '/:id', 
-      component: item
+      component: oneitem
     },
   ]
 });
