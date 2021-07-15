@@ -15,8 +15,6 @@ public class UserService {
 
     public
     User findCurrentUser() {
-        // the login session is stored between page reloads,
-        // and we can access the current authenticated user with this
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         return userRepo.findByEmail(email);
     }

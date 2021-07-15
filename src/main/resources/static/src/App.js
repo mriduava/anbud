@@ -20,8 +20,13 @@ export default{
             <ChatBox/>    
             <Footer/> 
         </div>`,
-    created() {
-        this.$store.dispatch('fetchAllMessages'),
+    async created() {
+        this.$store.dispatch('fetchAllMessages')
         this.$store.dispatch('fetchAllAuctionItems')
+
+        let user = await fetch('/currentuser')
+        if(user.ok) {
+            this.$store.commit('setUser', user)
+        }
     },
 }

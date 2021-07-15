@@ -41,7 +41,7 @@ public class UserController {
     public ResponseEntity<User> currentUser() {
         User user = userService.findCurrentUser();
         if(user == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND); // 404
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
         return ResponseEntity.ok(user);
@@ -100,6 +100,12 @@ public class UserController {
     public ResponseEntity<String> login(@RequestBody User user, HttpServletRequest req) {
         securityLogin(user.getEmail(), user.getPassword(), req);
         return ResponseEntity.ok("ok");
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<User> register(@RequestBody User user){
+        var newuser = userService.registerUser(user.getName(), user.getEmail(), user.getPictureUrl(), user.getPassword());
+        return ResponseEntity.ok(newuser);
     }
 
     private void securityLogin(String email, String password, HttpServletRequest req) {

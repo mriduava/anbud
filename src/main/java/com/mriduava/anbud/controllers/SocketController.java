@@ -40,7 +40,6 @@ public class SocketController extends TextWebSocketHandler {
                 break;
             case "bid":
                 Bid bid = convertPayload(socketDTO.payload, Bid.class);
-                System.out.println("Hello: " + bid);
                 socketService.saveNewBid(bid);
                 break;
             case "connection":
