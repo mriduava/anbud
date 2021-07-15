@@ -13,15 +13,15 @@ const TopNavbar = () => {
         <Link to="/" className="mr-auto navbar-brand text-success font-weight-bold mb-0 pt-2 pb-0"><h3>ANBUD</h3></Link>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
-          <Nav  className="float-right ml-auto" navbar>
+          <Nav  className="ml-auto" navbar>
             <NavItem className="mr-4">
-              <Link className="text-dark mr-4" to="/register">SIGN UP</Link>
+              <Link className="text-dark mx-lg-2" to="/register">SIGN UP</Link>
             </NavItem>
             <NavItem>
-              <Link className="text-dark" to="/signin">SIGN IN</Link>
+              <Link className="text-dark mx-lg-3" to="/signin">SIGN IN</Link>
             </NavItem>
             <NavItem>
-              <Link className="text-dark" to="/"> LOGOUT</Link>
+              <Link className="text-dark ml-lg-2" to="/"> LOGOUT</Link>
             </NavItem>
           </Nav>          
         </Collapse>

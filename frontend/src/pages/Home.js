@@ -1,10 +1,12 @@
 import React from 'react'
+import ItemList from '../components/auction/ItemList'
+import { Container } from 'reactstrap';
 
 const Home = () => {
   return (
-    <div>
-      <h1>HOME</h1>
-    </div>
+    <Container>
+      <ItemList/>
+    </Container>
   )
 }
 
