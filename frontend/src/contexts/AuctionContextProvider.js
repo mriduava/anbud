@@ -10,13 +10,18 @@ const AuctionContextProvider = (props) => {
       let auctions = await fetch('/rest/auctions')
       auctions = await auctions.json()
       setAuctionItems(auctions);
-      console.log(auctionItems);
+      // console.log(auctionItems);
     };
     fetchAllAuctionItems()
   }, [])
 
+  const updateItemsState = (item) => {
+    setAuctionItems([...auctionItems, item])
+  }
+
   const values = {
-    auctionItems
+    auctionItems,
+    updateItemsState
   }
 
   return (
