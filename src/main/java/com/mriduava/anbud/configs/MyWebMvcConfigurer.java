@@ -3,20 +3,14 @@ package com.mriduava.anbud.configs;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
-import org.springframework.http.CacheControl;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.resource.PathResourceResolver;
 
 import javax.sql.DataSource;
-import java.io.IOException;
 
 @Configuration
 class MyWebMvcConfigurer implements WebMvcConfigurer {
 
-    @Override
+    /*@Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/**")
                 .addResourceLocations("file:src/main/resources/static/")
@@ -31,7 +25,7 @@ class MyWebMvcConfigurer implements WebMvcConfigurer {
                                 : new ClassPathResource("/static/index.html");
                     }
                 });
-    }
+    }*/
 
     @Bean
     public DataSource dataSource() {

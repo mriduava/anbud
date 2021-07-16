@@ -3,15 +3,14 @@ import React, {createContext, useState, useEffect } from 'react'
 export const AuctionContext = createContext();
 
 const AuctionContextProvider = (props) => {
-  const [auctionItems, setAuctionItems] = useState()
+  const [auctionItems, setAuctionItems] = useState([])
 
+  const fetchAllAuctionItems = async () => {
+    let auctions = await fetch('/rest/auctions')
+    auctions = await auctions.json()
+    setAuctionItems(auctions);
+  };
   useEffect(()=>{
-    const fetchAllAuctionItems = async () => {
-      let auctions = await fetch('/rest/auctions')
-      auctions = await auctions.json()
-      setAuctionItems(auctions);
-      // console.log(auctionItems);
-    };
     fetchAllAuctionItems()
   }, [])
 
@@ -19,8 +18,13 @@ const AuctionContextProvider = (props) => {
     setAuctionItems([...auctionItems, item])
   }
 
+  useEffect(()=>{
+    updateItemsState()
+  }, [auctionItems])
+
   const values = {
     auctionItems,
+    fetchAllAuctionItems,
     updateItemsState
   }
 

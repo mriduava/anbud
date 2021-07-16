@@ -21,6 +21,9 @@ const TopNavbar = () => {
               <Link className="text-dark mx-lg-3" to="/signin">SIGN IN</Link>
             </NavItem>
             <NavItem>
+              <Link className="text-dark mx-lg-3" to="/newauction">CREATE AD</Link>
+            </NavItem>
+            <NavItem>
               <Link className="text-dark ml-lg-2" to="/"> LOGOUT</Link>
             </NavItem>
           </Nav>          

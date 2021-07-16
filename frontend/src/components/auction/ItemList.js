@@ -10,12 +10,12 @@ const ItemList = () => {
   const mapAuctionItems = () => {
     return auctionItems.map((item, i) => {
       return (
-        <Col key={'sub' + item._id + i} className="my-3">
+        <Col lg="4" key={'sub' + item._id + i} className="my-3">
           <Card className="card">
             <CardImg top className="card-image" width="100%" src={item.item_image} alt="Anbud Image" />
             <CardBody>
               <CardTitle tag="h5" className="text-dark">{item.item_name}</CardTitle>
-              <CardSubtitle tag="h6" className="mb-2 text-muted">Seller: <span className="text-capitalize text-success">{item.owner.name}</span></CardSubtitle>
+              {/* <CardSubtitle tag="h6" className="mb-2 text-muted">Seller: <span className="text-capitalize text-success">{item.owner.name}</span></CardSubtitle> */}
               <CardText className="text-secondary">Some quick example text to build on the card title and make up the bulk of the card's content.</CardText>
               <CardText><span className="text-danger">{item.initial_price}</span> SEK</CardText>
               <CardText className="text-primary">End: {item.stop_date}</CardText>

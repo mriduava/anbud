@@ -8,52 +8,46 @@ const SocketContextProvider = (props) => {
 
   const [ws, setWs] = useState();
   const [isConnected, setIsConnected] = useState(false);
-  const [dataWrapper, setDataWrapper] = useState()
-
-  const send = (data) => {
-    ws.send(JSON.stringify(data));
-  }
   
   useEffect(()=>{
     const connect = () => {
-    const ws = new WebSocket('ws://localhost:9000/anbudsocket');
-    setWs(ws);
+      const ws = new WebSocket('ws://localhost:9000/anbud-socket');
+      setWs(ws)
+      let dataWrapper;
+      ws.onmessage = (e) => {
+        try {
+          dataWrapper = JSON.parse(e.data)
+        } catch {
+          console.warn('Could not parse:', e);
+          return
+        }
     
-    ws.onmessage = (e) => {
-      try {
-        setDataWrapper(JSON.parse(e.data))
-      } catch {
-        console.warn('Could not parse:', e.data);
-        return
-      }
-
-      switch(dataWrapper.action) {
-        case 'auction':
-          console.log('New auction:', dataWrapper.payload);
-          updateItemsState(dataWrapper.payload)
-          break;
-        case 'user-status':
-            console.log('New status change:', dataWrapper.payload);
+        switch(dataWrapper.action) {
+          case 'auction':
+            console.log('New auction:', dataWrapper.payload);
+            updateItemsState([dataWrapper.payload])
             break;
-        default:
-            console.log('Could not read action:', dataWrapper.action);
+          case 'user-status':
+              console.log('New status change:', dataWrapper.payload);
+              break;
+          default:
+              console.log('Could not read action:', dataWrapper.action);
+        }
       }
+
+      ws.onopen = (e) => {
+        ws.send(JSON.stringify({
+          action: 'connection',
+          payload: 'user connected'
+        }));
+        setIsConnected(true);
+      };
+
+      ws.onclose = (e) => {
+        console.log("Closing websocket...");
+      };
+      console.log("Connecting...");
     }
-
-    ws.onopen = (e) => {
-      send({
-        action: 'connection',
-        payload: 'user connected'
-      });
-      setIsConnected(true);
-    };
-
-    ws.onclose = (e) => {
-      console.log("Closing websocket...");
-    };
-    console.log("Connecting...");
-    }
-
     connect();
   }, [])
 
@@ -65,6 +59,9 @@ const SocketContextProvider = (props) => {
     console.log("Disconnected");
   }
 
+  const send = (data) => {
+    ws.send(JSON.stringify(data));
+  }
 
   const sendAuctionItem = (newitem) => {
     send({
