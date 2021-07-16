@@ -3,7 +3,9 @@ import React, {createContext, useState, useEffect } from 'react'
 export const AuctionContext = createContext();
 
 const AuctionContextProvider = (props) => {
-  const [auctionItems, setAuctionItems] = useState([])
+  const [auctionItems, setAuctionItems] = useState()
+  const [auctionItem, setAuctionItem] = useState()
+  const [owner, setOwner] = useState()
 
   const fetchAllAuctionItems = async () => {
     let auctions = await fetch('/rest/auctions')
@@ -18,13 +20,29 @@ const AuctionContextProvider = (props) => {
     setAuctionItems([...auctionItems, item])
   }
 
-  useEffect(()=>{
-    updateItemsState()
-  }, [auctionItems])
+  const fetchOneAuctionItem = async (id) => {
+    let auction = await fetch(`/rest/auctions/${id}`)
+    auction = await auction.json()
+    setAuctionItem(auction);
+    setOwner(auction.owner);
+  };
+
+  useEffect(() => {
+    const parsedData = JSON.parse(localStorage.getItem("item"))
+    setAuctionItem(parsedData)
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem("item", JSON.stringify(auctionItem))
+  }, [auctionItem])
 
   const values = {
     auctionItems,
     fetchAllAuctionItems,
+    fetchOneAuctionItem,
+    auctionItem,
+    owner,
+    setAuctionItem,
     updateItemsState
   }
 

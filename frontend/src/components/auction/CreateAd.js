@@ -37,9 +37,9 @@ const CreateAd = () => {
     // })
     // .then((response) => {
     //   if (response.ok) {
-    //     setMessage("Thread submission successful!")     
+    //     setMessage("Auction submission successful!")     
     //   } else {
-    //     setMessage("Thread submission failed!")
+    //     setMessage("Auction submission failed!")
     //   }
     // })
     // .catch((error) => {
@@ -50,8 +50,8 @@ const CreateAd = () => {
   return (
     <Container>
       <Row className="mt-5">
-        <Col lg="3"></Col>
-        <Col lg="6">
+        <Col lg="3" className="border-top border-end rounded"></Col>
+        <Col lg="6" className="py-5 rounded shadow-sm">
           <h4>Create ad</h4>
           <hr />
           <form onSubmit={createAd}>
@@ -61,10 +61,10 @@ const CreateAd = () => {
               value={imageUrl} onChange={e=>setImageUrl(e.target.value)}/>
             <input type="text" className="form-control mt-1" placeholder="Initial price"
               value={initialPrice} onChange={e=>setInitialPrice(e.target.value)}/>
-            <button class="btn btn-outline-success btn-sm float-right mt-2 px-5">Submit</button> 
+            <button className="btn btn-outline-success btn-sm float-right mt-3 px-5">Submit</button> 
           </form>
         </Col>
-        <Col lg="3"></Col>
+        <Col lg="3" className="border-start border-top rounded"></Col>
       </Row>
     </Container>
   )
