@@ -22,7 +22,7 @@ const ItemList = () => {
     return auctionItems.map((item, i) => {
       // let disp; item.stop_date < Date.now()?disp="none":disp="block"
       return (
-        <Col lg="4" key={'sub' + item.id + i} className="my-3" onClick={()=>fetchOneAuctionItem(item.id)}>
+        <Col lg="4" md="6" sm="12" key={'sub' + item.id + i} className="my-3" onClick={()=>fetchOneAuctionItem(item.id)}>
         <Link to={`/${item.item_name}`} style={{ textDecoration: 'none' }}>
           <Card className="card">
             <CardImg top className="card-image" width="100%" src={item.item_image} alt="Anbud Image" />

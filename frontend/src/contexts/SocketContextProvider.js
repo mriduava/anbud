@@ -4,7 +4,7 @@ import { AuctionContext } from './AuctionContextProvider'
 export const SocketContext = createContext();
 
 const SocketContextProvider = (props) => {
-  const { updateItemsState } = useContext(AuctionContext)
+  const { updateBids, fetchAllBids } = useContext(AuctionContext)
 
   const [ws, setWs] = useState();
   const [isConnected, setIsConnected] = useState(false);
@@ -23,9 +23,8 @@ const SocketContextProvider = (props) => {
         }
     
         switch(dataWrapper.action) {
-          case 'auction':
-            console.log('New auction:', dataWrapper.payload);
-            // updateItemsState([dataWrapper.payload])
+          case 'bid':
+            updateBids([dataWrapper.payload])
             break;
           case 'user-status':
               console.log('New status change:', dataWrapper.payload);
@@ -63,15 +62,15 @@ const SocketContextProvider = (props) => {
     ws.send(JSON.stringify(data));
   }
 
-  const sendAuctionItem = (newitem) => {
+  const sendBidData = (newBid) => {
     send({
-        action: 'auction',
-        payload: newitem
+        action: 'bid',
+        payload: newBid
     })
   }
 
   const values = {
-    sendAuctionItem
+    sendBidData
   };
 
   return (

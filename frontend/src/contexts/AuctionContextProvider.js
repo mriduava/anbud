@@ -31,8 +31,9 @@ const AuctionContextProvider = (props) => {
     fetchAllBids()
   }, [])
 
-  const updateItemsState = (item) => {
-    setAuctionItems([...auctionItems, item])
+  const updateBids = (newBid) => {
+    bids.push(newBid)
+    fetchAllBids()
   }
 
   const fetchOneAuctionItem = async (id) => {
@@ -47,14 +48,13 @@ const AuctionContextProvider = (props) => {
     if (localStorage.getItem("item") !== null || localStorage.getItem("item") !== undefined) {
       parsedData = JSON.parse(localStorage.getItem("item"))
     }
-    // setAuctionItem(parsedData)
+    setAuctionItem(parsedData)
   }, [])
 
   useEffect(() => {
     if (auctionItem !== null || auctionItem !== undefined) {
        localStorage.setItem("item", JSON.stringify(auctionItem))
     }
-   
   }, [auctionItem])
 
 
@@ -64,9 +64,9 @@ const AuctionContextProvider = (props) => {
     fetchOneAuctionItem,
     auctionItem,
     setAuctionItem,
-    updateItemsState,
     fetchAllBids,
-    bids
+    bids,
+    updateBids
   }
 
   return (

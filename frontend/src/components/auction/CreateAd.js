@@ -4,9 +4,6 @@ import { AuctionContext } from '../../contexts/AuctionContextProvider'
 import { SocketContext } from '../../contexts/SocketContextProvider'
 
 const CreateAd = () => {
-  const { auctionItems } = useContext(AuctionContext);
-  const { sendAuctionItem } = useContext(SocketContext);
-
   const [itemName, setItemName] = useState('')
   const [imageUrl, setImageUrl] = useState('')
   const [initialPrice, setInitialPrice] = useState('')
@@ -24,8 +21,6 @@ const CreateAd = () => {
       start_date: Date.now(),
       stop_date: today.getTime() + 1
     }
-
-    // sendAuctionItem(data)
 
     await fetch(`/rest/auctions`, {
       method: 'POST',
