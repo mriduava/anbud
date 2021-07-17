@@ -15,36 +15,36 @@ const CreateAd = () => {
 
   const createAd = async (e) => {
     e.preventDefault();
-
+    let today = new Date();
     let data = {
       item_name: itemName,
       item_image: imageUrl,
       initial_price: initialPrice,
-      owner_id: 1,
+      owner_id: 89,
       start_date: Date.now(),
-      stop_date: Date.now()
+      stop_date: today.getTime() + 1
     }
 
-    sendAuctionItem(data)
+    // sendAuctionItem(data)
 
-    // await fetch(`/rest/auctions`, {
-    //   method: 'POST',
-    //   body: JSON.stringify(data),
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     'Accept': 'application/json'
-    //   }
-    // })
-    // .then((response) => {
-    //   if (response.ok) {
-    //     setMessage("Auction submission successful!")     
-    //   } else {
-    //     setMessage("Auction submission failed!")
-    //   }
-    // })
-    // .catch((error) => {
-    //   return Promise.reject();
-    // });
+    await fetch(`/rest/auctions`, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    })
+    .then((response) => {
+      if (response.ok) {
+        setMessage("Auction submission successful!")     
+      } else {
+        setMessage("Auction submission failed!")
+      }
+    })
+    .catch((error) => {
+      return Promise.reject();
+    });
   }
 
   return (

@@ -36,4 +36,9 @@ public class BidController {
         var bids = bidService.findBidsByAuctionId(auctionId);
         return ResponseEntity.ok(bids);
     }
+
+    /*@GetMapping("/rest/auctionswithbids")
+    public List<Bid> getAllAuctionsWithBids() {
+        return bidService.getAuctionWithBids();
+    }*/
 }

@@ -25,7 +25,7 @@ const SocketContextProvider = (props) => {
         switch(dataWrapper.action) {
           case 'auction':
             console.log('New auction:', dataWrapper.payload);
-            updateItemsState([dataWrapper.payload])
+            // updateItemsState([dataWrapper.payload])
             break;
           case 'user-status':
               console.log('New status change:', dataWrapper.payload);

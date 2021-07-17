@@ -3,6 +3,7 @@ package com.mriduava.anbud.services;
 import com.mriduava.anbud.dtos.SocketDTO;
 import com.mriduava.anbud.entities.AuctionItem;
 import com.mriduava.anbud.repositories.AuctionRepo;
+import com.mriduava.anbud.repositories.BidRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,10 @@ public class AuctionService {
     @Autowired
     SocketService socketService;
 
+    @Autowired
+    BidRepo bidRepo;
+
+    AuctionItem auctionItem;
     public List<AuctionItem> getAllItems() {
         return auctionRepo.findAll();
     }
