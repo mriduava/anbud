@@ -31,4 +31,9 @@ public class AuctionController {
         boolean isSaved = auctionService.postNewAuction(auctionItem);
         return ResponseEntity.ok(isSaved);
     }
+
+    @GetMapping("/search/{name}")
+    public List<AuctionItem> getByItemName(@PathVariable String name) {
+        return auctionService.getByItemName(name);
+    }
 }

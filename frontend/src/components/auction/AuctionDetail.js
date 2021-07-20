@@ -1,12 +1,14 @@
 import React, {useContext, useState} from 'react'
 import { AuctionContext } from '../../contexts/AuctionContextProvider'
 import { SocketContext } from '../../contexts/SocketContextProvider'
+import { UserContext } from '../../contexts/UserContextProvider'
 import { Container, Row, Col} from 'reactstrap';
 import moment from 'moment'
 
 const AuctionDetail = () => {
   const { auctionItem, bids } = useContext(AuctionContext);
   const { sendBidData } = useContext(SocketContext);
+  const { user } = useContext(UserContext);
 
   const [newBid, setNewBid] = useState('');
 
@@ -26,11 +28,13 @@ const AuctionDetail = () => {
       alert(`Please write a value more than ${getTheHighestBid(auctionItem.id)}`)
     }else if(newBid <= auctionItem.initial_price ){
       alert(`Please write a value more than ${auctionItem.initial_price}`)
+    }else if(user.id === auctionItem.owner.id){
+      alert(`You can not bid on your own auction!`)
     }else{
       let data = {
         auction_id: auctionItem.id,
         bid: +newBid,
-        bidder_id: 93,
+        bidder_id: user.id,
         created_at: Date.now()
       }
       sendBidData(data)

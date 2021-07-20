@@ -36,4 +36,9 @@ public class AuctionService {
         socketService.sendToAllClient(socketData);
         return savedAuction.getId() > 0;
     }
+
+    public List<AuctionItem> getByItemName(String item_name) {
+        return auctionRepo.findAuctionByName(item_name);
+    }
+
 }

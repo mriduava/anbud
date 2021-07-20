@@ -7,6 +7,7 @@ const SocketContextProvider = (props) => {
   const { updateBids } = useContext(AuctionContext)
 
   const [ws, setWs] = useState();
+  const [isConnected, setIsConnected] = useState(false);
   
   useEffect(()=>{
     const connect = () => {
@@ -38,7 +39,7 @@ const SocketContextProvider = (props) => {
           action: 'connection',
           payload: 'user connected'
         }));
-        // setIsConnected(true);
+        setIsConnected(true);
       };
 
       ws.onclose = (e) => {
@@ -48,6 +49,14 @@ const SocketContextProvider = (props) => {
     }
     connect();
   }, [])
+
+  const disconnect = () => {
+    if (ws != null) {
+        ws.close();
+    }
+    setIsConnected(false);
+    console.log("Disconnected");
+  }
 
   const send = (data) => {
     ws.send(JSON.stringify(data));
