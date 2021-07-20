@@ -5,6 +5,17 @@ export const UserContext = createContext();
 const UserContextProvider = (props) => {
   const [user, setUser] = useState(null)
 
+  const fetchUser = async () => {
+    let res = await fetch('/auth/user')
+    try {
+      res = await res.json()
+      setUser(res)
+      localStorage.setItem('user', JSON.stringify(user)) 
+    } catch {
+      console.log("Not authenticated!");
+    }
+  }
+
   useEffect(()=>{
     const currentUser = JSON.parse(localStorage.getItem('user'))
     if (currentUser) {
@@ -14,7 +25,8 @@ const UserContextProvider = (props) => {
 
   const values = {
     user,
-    setUser
+    setUser,
+    fetchUser
   };
 
   return (

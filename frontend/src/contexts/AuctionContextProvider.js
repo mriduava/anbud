@@ -10,19 +10,19 @@ const AuctionContextProvider = (props) => {
   const [auctionId, setAuctionId] = useState()
 
   const fetchAllBids= async () => {
-    let bids = await fetch(`/rest/bids`)
+    let bids = await fetch(`/api/bids`)
     bids = await bids.json()
     setBids(bids);
   };
 
   const fetchBidsByAuctionId = async (auctionId) => {
-    let oneItemBids = await fetch(`/rest/bids/${auctionId}`)
+    let oneItemBids = await fetch(`/api/bids/${auctionId}`)
     oneItemBids= await oneItemBids.json()
     setItemBids(oneItemBids);
   };
 
   const fetchAllAuctionItems = async () => {
-    let auctions = await fetch('/rest/auctions')
+    let auctions = await fetch('/api/auctions')
     auctions = await auctions.json()
     setAuctionItems(auctions);
   };
@@ -37,7 +37,7 @@ const AuctionContextProvider = (props) => {
   }
 
   const fetchOneAuctionItem = async (id) => {
-    let auction = await fetch(`/rest/auctions/${id}`)
+    let auction = await fetch(`/api/auctions/${id}`)
     auction = await auction.json()
     setAuctionItem(auction);
     setAuctionId(id)

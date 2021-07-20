@@ -22,6 +22,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+
 import static org.springframework.security.web.context.HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY;
 
 @RestController
@@ -36,16 +37,6 @@ public class UserController {
 
     @Resource(name="authenticationManager")
     private AuthenticationManager authManager;
-
-    @GetMapping("/currentuser")
-    public ResponseEntity<User> currentUser() {
-        User user = userService.findCurrentUser();
-        if(user == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
-
-        return ResponseEntity.ok(user);
-    }
 
     @PostMapping("/storeauthcode")
     public String storeauthcode(@RequestBody String code, @RequestHeader("X-Requested-With") String encoding, HttpServletRequest req) {
@@ -96,13 +87,27 @@ public class UserController {
         return "OK";
     }
 
-    @PostMapping("/login")
+    /*@PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody User user, HttpServletRequest req) {
         securityLogin(user.getEmail(), user.getPassword(), req);
         return ResponseEntity.ok("ok");
+    }*/
+
+    @GetMapping("/currentuser")
+    public ResponseEntity<User> currentUser() {
+        User user = userService.findCurrentUser();
+        if(user == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(user);
     }
 
-    @PostMapping("/register")
+    @GetMapping("/auth/user")
+    public User getUser(){
+        return userService.findCurrentUser();
+    }
+
+    @PostMapping("/auth/register")
     public ResponseEntity<User> register(@RequestBody User user){
         var newuser = userService.registerUser(user.getName(), user.getEmail(), user.getPictureUrl(), user.getPassword());
         return ResponseEntity.ok(newuser);

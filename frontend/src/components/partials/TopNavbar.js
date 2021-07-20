@@ -26,10 +26,10 @@ const TopNavbar = () => {
           {!user?(
             <>
               <NavItem className="mr-4">
-                <Link className="text-dark mx-lg-2" to="/register">SIGN UP</Link>
+                <Link className="text-dark mx-lg-2" to="/user-register">SIGN UP</Link>
               </NavItem>
               <NavItem>
-                <Link className="text-dark mx-lg-3" to="/signin">SIGN IN</Link>
+                <Link className="text-dark mx-lg-3" to="/user-login">SIGN IN</Link>
               </NavItem>
             </>
             ):(

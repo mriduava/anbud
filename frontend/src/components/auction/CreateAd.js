@@ -1,7 +1,5 @@
-import React, {useContext, useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Container, Row, Col } from 'reactstrap';
-import { AuctionContext } from '../../contexts/AuctionContextProvider'
-import { SocketContext } from '../../contexts/SocketContextProvider'
 
 const CreateAd = () => {
   const [itemName, setItemName] = useState('')
@@ -22,7 +20,7 @@ const CreateAd = () => {
       stop_date: today.getTime() + 1
     }
 
-    await fetch(`/rest/auctions`, {
+    await fetch(`/api/auctions`, {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {

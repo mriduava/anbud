@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/rest/auctions")
+@RequestMapping("/api/auctions")
 public class AuctionController {
 
     @Autowired

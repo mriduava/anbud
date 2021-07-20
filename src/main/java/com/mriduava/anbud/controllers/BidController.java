@@ -15,30 +15,25 @@ public class BidController {
     @Autowired
     BidService bidService;
 
-    @GetMapping("/rest/bids")
+    @GetMapping("/api/bids")
     public List<Bid> getAllBids() {
         return bidService.getAllBids();
     }
 
-   /* @GetMapping("/rest/bids/{id}")
+   /* @GetMapping("/api/bids/{id}")
     public Optional<Bid> getOneBid(@PathVariable Long id) {
         return bidService.getBidById(id);
     }*/
 
-    @PostMapping("/rest/bids")
+    @PostMapping("/api/bids")
     public Bid postNewBid(@RequestBody Bid bid) {
         var isSaved = bidService.postNewBid(bid);
         return bidService.postNewBid(bid);
     }
 
-    @GetMapping("/rest/bids/{auctionId}")
+    @GetMapping("/api/bids/{auctionId}")
     public ResponseEntity<List<Bid>> getAllBidsByAuctionId(@PathVariable long auctionId) {
         var bids = bidService.findBidsByAuctionId(auctionId);
         return ResponseEntity.ok(bids);
     }
-
-    /*@GetMapping("/rest/auctionswithbids")
-    public List<Bid> getAllAuctionsWithBids() {
-        return bidService.getAuctionWithBids();
-    }*/
 }

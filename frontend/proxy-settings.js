@@ -23,8 +23,9 @@ module.exports = {
   // a function that should return true if the backend-api 
   // is to handle the request (add your own logic here as needed)
   handleWithAPI(url) {
-    return url.indexOf('/rest/') === 0
-    || url.indexOf('/register') === 0
-    || url.indexOf('/logout') === 0;
+    return url.indexOf('/api/') === 0
+        || url.indexOf('/login') === 0
+        || url.indexOf('/logout') === 0
+        || url.indexOf('/auth/') === 0;
   }
 };
