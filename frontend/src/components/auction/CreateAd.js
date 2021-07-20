@@ -1,7 +1,22 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Container, Row, Col } from 'reactstrap';
+import { UserContext } from '../../contexts/UserContextProvider'
+import { AuctionContext } from '../../contexts/AuctionContextProvider'
+import DatePicker, { registerLocale } from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
+import sv from "date-fns/locale/sv"; 
+registerLocale("sv", sv); 
 
-const CreateAd = () => {
+
+const CreateAd = (props) => {
+  const { user } = useContext(UserContext)
+  const { appendToAuctionsState } = useContext(AuctionContext)
+
+  const today = new Date();
+  const tomorrow = today.setDate(today.getDate()+1);
+  const [endDate, setEndDate] = useState(tomorrow);
+
+
   const [itemName, setItemName] = useState('')
   const [imageUrl, setImageUrl] = useState('')
   const [initialPrice, setInitialPrice] = useState('')
@@ -10,14 +25,15 @@ const CreateAd = () => {
 
   const createAd = async (e) => {
     e.preventDefault();
-    let today = new Date();
+    let date = new Date(endDate);
+    let end_date = date.getTime()
     let data = {
       item_name: itemName,
       item_image: imageUrl,
       initial_price: initialPrice,
-      owner_id: 89,
+      owner_id: user.id,
       start_date: Date.now(),
-      stop_date: today.getTime() + 1
+      stop_date: end_date
     }
 
     await fetch(`/api/auctions`, {
@@ -30,13 +46,18 @@ const CreateAd = () => {
     })
     .then((response) => {
       if (response.ok) {
-        setMessage("Auction submission successful!")     
+        response = response.json();
+        Promise.resolve(response)
+        .then(data => {
+          appendToAuctionsState(data)
+        })             
+        props.history.push('/') 
       } else {
-        setMessage("Auction submission failed!")
+        setMessage("Submission failed!")
       }
     })
     .catch((error) => {
-      return Promise.reject();
+      return Promise.reject()
     });
   }
 
@@ -54,7 +75,20 @@ const CreateAd = () => {
               value={imageUrl} onChange={e=>setImageUrl(e.target.value)}/>
             <input type="text" className="form-control mt-1" placeholder="Initial price"
               value={initialPrice} onChange={e=>setInitialPrice(e.target.value)}/>
+            <div className="mt-3">
+            <span className="mr-5 text-dark">Ends </span>
+              <DatePicker className="px-2 py-1 border border-secondary rounded" locale="sv"
+                style={{ padding:'2px !important'}} selected={endDate}
+                onChange={date=>setEndDate(date)}
+                minDate={tomorrow} isClearable
+                showWeekNumbersshowTimeSelect showTimeSelect
+                timeFormat="p" timeIntervals={15} dateFormat="Pp"
+                showYearDropdown scrolllableMonthYearDropdown
+                placeholderText="End date"
+              />  
+            </div>    
             <button className="btn btn-outline-success btn-sm float-right mt-3 px-5">Submit</button> 
+            <p className="mt-1">{message&&message}</p>
           </form>
         </Col>
         <Col lg="3" className="border-start border-top rounded"></Col>

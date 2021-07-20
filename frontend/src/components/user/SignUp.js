@@ -1,10 +1,7 @@
-import React, {useContext, useState} from 'react'
+import React, {useState} from 'react'
 import { Container, Row, Col } from 'reactstrap';
-import { UserContext } from '../../contexts/UserContextProvider'
 
 const SignUp = (props) => {
-  const { setUser } = useContext(UserContext)
-
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -21,13 +18,12 @@ const SignUp = (props) => {
       pictureUrl: ''
     }
   
-    let res = await fetch("/auth/register", {
+    await fetch("/auth/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(credentials)
     });
     try {
-      res = await res.json()
       props.history.push('/user-login')
     } catch {
       setMessage('Something wrong!')
@@ -48,7 +44,8 @@ const SignUp = (props) => {
               value={email} onChange={e=>setEmail(e.target.value)} required/>
             <input type="password" className="form-control mt-1" placeholder="Password"
               value={password} onChange={e=>setPassword(e.target.value)} required/>
-            <button className="btn btn-outline-success btn-sm float-right mt-3 px-5 w-100">Submit</button> 
+            <button className="btn btn-outline-success btn-sm float-right mt-3 px-5 w-100">Submit</button>
+            <p className="mt-1">{message&&message}</p>
           </form>
         </Col>
         <Col lg="4" className="border rounded bg-light"></Col>

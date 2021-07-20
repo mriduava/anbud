@@ -6,8 +6,6 @@ const AuctionContextProvider = (props) => {
   const [auctionItems, setAuctionItems] = useState([])
   const [auctionItem, setAuctionItem] = useState(null)
   const [bids, setBids] = useState([])
-  const [itemBids, setItemBids] = useState()
-  const [auctionId, setAuctionId] = useState()
 
   const fetchAllBids= async () => {
     let bids = await fetch(`/api/bids`)
@@ -18,7 +16,7 @@ const AuctionContextProvider = (props) => {
   const fetchBidsByAuctionId = async (auctionId) => {
     let oneItemBids = await fetch(`/api/bids/${auctionId}`)
     oneItemBids= await oneItemBids.json()
-    setItemBids(oneItemBids);
+    // setItemBids(oneItemBids);
   };
 
   const fetchAllAuctionItems = async () => {
@@ -31,6 +29,11 @@ const AuctionContextProvider = (props) => {
     fetchAllBids()
   }, [])
 
+  const appendToAuctionsState = () => {
+    // return setAuctionItems([...auctionItems, item])
+    fetchAllAuctionItems()
+  }
+
   const updateBids = (newBid) => {
     bids.push(newBid)
     fetchAllBids()
@@ -40,7 +43,6 @@ const AuctionContextProvider = (props) => {
     let auction = await fetch(`/api/auctions/${id}`)
     auction = await auction.json()
     setAuctionItem(auction);
-    setAuctionId(id)
   };
 
   useEffect(() => {
@@ -66,7 +68,8 @@ const AuctionContextProvider = (props) => {
     setAuctionItem,
     fetchAllBids,
     bids,
-    updateBids
+    updateBids,
+    appendToAuctionsState
   }
 
   return (

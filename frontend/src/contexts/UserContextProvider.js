@@ -17,6 +17,7 @@ const UserContextProvider = (props) => {
   }
 
   useEffect(()=>{
+    fetchUser()
     const currentUser = JSON.parse(localStorage.getItem('user'))
     if (currentUser) {
       setUser(currentUser)

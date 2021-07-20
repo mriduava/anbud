@@ -3,7 +3,7 @@ import { Container, Row, Col } from 'reactstrap';
 import { UserContext } from '../../contexts/UserContextProvider'
 
 const SignIn = (props) => {
-  const { setUser, fetchUser } = useContext(UserContext)
+  const { fetchUser } = useContext(UserContext)
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')

@@ -53,14 +53,15 @@ const AuctionDetail = () => {
         </Col>
         <Col lg="3" className="rounded border bg-light pb-5 mr-2">
           <div className="d-flex justify-content-between mt-3">
-            <h5 className="text-danger">{getTheHighestBid(auctionItem.id) !==0?'Leading bid':'Starting price'}</h5>
-            <h5 className="text-danger">{getTheHighestBid(auctionItem.id) ===0?auctionItem.initial_price:getTheHighestBid(auctionItem.id)} SEK</h5>
-          </div>
-          <div className="d-flex justify-content-between mt-3">
-            <p className="text-primary">Ends</p>
-            <p className="text-primary">{formatTime(auctionItem.stop_date)}</p>
+            <h5 className="text-primary">{getTheHighestBid(auctionItem.id) !==0?'Leading bid':'Starting price'}</h5>
+            <h5 className="text-danger">{getTheHighestBid(auctionItem.id) ===0?auctionItem.initial_price:getTheHighestBid(auctionItem.id)} <span className="text-secondary">SEK</span></h5>
           </div>
           <hr />
+          <div className="d-flex justify-content-between mt-3">
+            <p className="text-primary">Ends</p>
+            <p className="text-success">{formatTime(auctionItem.stop_date)}</p>
+          </div>
+          
           <div className="mt-5">
             <h6 className="text-secondary">Put a value greater than the highest bid.</h6>
             <form onSubmit={postNewBid}>
