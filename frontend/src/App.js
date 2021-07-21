@@ -11,6 +11,7 @@ import Home from './pages/Home'
 import AuctionContextProvider from './contexts/AuctionContextProvider'
 import SocketContextProvider from './contexts/SocketContextProvider'
 import UserContextProvider from './contexts/UserContextProvider'
+import ProtectedRoute from './components/protected/ProtectedRoute'
 
 const App = () => {
   return (
@@ -21,9 +22,10 @@ const App = () => {
             <Router>         
               <Navbar/>       
                 <div className="content">
-                  <Switch>         
+                  <Switch>
+                    <ProtectedRoute exact path='/newauction' component={CreateAd} />      
                     <Route exact path="/" component={Home} />                                                 
-                    <Route exact path="/newauction" component={CreateAd} />
+                    {/* <Route exact path="/newauction" component={CreateAd} /> */}
                     <Route exact path="/user-register" component={SignUp} />
                     <Route exact path="/user-login" component={SignIn} />
                     <Route exact path="/:id" component={AuctionDetail} />                                             

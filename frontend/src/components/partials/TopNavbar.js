@@ -62,7 +62,7 @@ const TopNavbar = () => {
               <NavItem>
                 <Link className="text-dark mx-lg-4" to="/newauction">CREATE AD</Link>
               </NavItem>
-              <NavItem lassName="mt-3 mx-1">
+              <NavItem className="mx-1">
                 <Link className="text-dark mx-lg-3 text-uppercase" to="/" style={{textDecoration:'none'}}>User: <span className="text-success">{user&&user.name}</span></Link>
               </NavItem>
               <NavItem>

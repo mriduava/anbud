@@ -1,14 +1,14 @@
 import React, {useContext, useState } from 'react'
+import { useHistory } from "react-router-dom";
 import { Container, Row, Col } from 'reactstrap';
 import { UserContext } from '../../contexts/UserContextProvider'
 
 const SignIn = (props) => {
   const { fetchUser } = useContext(UserContext)
-
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-
   const [message, setMessage] = useState('')
+  let history = useHistory();
 
   const signInUser = async (e) => {
     e.preventDefault();
@@ -28,7 +28,7 @@ const SignIn = (props) => {
       setMessage('Wrong email or password!')
     }else{
       fetchUser();
-      props.history.push("/");    
+      history.goBack() 
     }
   }
 

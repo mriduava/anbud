@@ -1,11 +1,12 @@
 import React, {useContext, useState} from 'react'
+import  { Redirect } from 'react-router-dom'
 import { AuctionContext } from '../../contexts/AuctionContextProvider'
 import { SocketContext } from '../../contexts/SocketContextProvider'
 import { UserContext } from '../../contexts/UserContextProvider'
 import { Container, Row, Col} from 'reactstrap';
 import moment from 'moment'
 
-const AuctionDetail = () => {
+const AuctionDetail = (props) => {
   const { auctionItem, bids } = useContext(AuctionContext);
   const { sendBidData } = useContext(SocketContext);
   const { user } = useContext(UserContext);
@@ -24,13 +25,20 @@ const AuctionDetail = () => {
 
   const postNewBid = (e) => {
     e.preventDefault();
-    if (newBid <= getTheHighestBid(auctionItem.id)) {
+
+    if (user === null) {
+      props.history.push('/user-login')
+    }
+    else if (newBid <= getTheHighestBid(auctionItem.id)) {
       alert(`Please write a value more than ${getTheHighestBid(auctionItem.id)}`)
-    }else if(newBid <= auctionItem.initial_price ){
+    }
+    else if(newBid <= auctionItem.initial_price ){
       alert(`Please write a value more than ${auctionItem.initial_price}`)
-    }else if(user.id === auctionItem.owner.id){
+    }
+    else if(user.id === auctionItem.owner.id){
       alert(`You can not bid on your own auction!`)
-    }else{
+    }
+    else{
       let data = {
         auction_id: auctionItem.id,
         bid: +newBid,
@@ -68,10 +76,10 @@ const AuctionDetail = () => {
           
           <div className="mt-5">
             <h6 className="text-secondary">Put a value greater than the highest bid.</h6>
-            <form onSubmit={postNewBid}>
+            <form onSubmit={e=>postNewBid(e)}>
               <input type="text" className="form-control mt-1" placeholder="Bid price"
                 value={newBid} onChange={e=>setNewBid(e.target.value)}/>
-              <button type="button" className="btn btn-outline-success btn-sm mt-3 px-5">Place bid</button> 
+              <button type="submit" className="btn btn-outline-success btn-sm mt-3 px-5">Place bid</button> 
             </form>
           </div>
         </Col>
