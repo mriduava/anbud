@@ -1,5 +1,4 @@
 import React, {useContext, useState} from 'react'
-import  { Redirect } from 'react-router-dom'
 import { AuctionContext } from '../../contexts/AuctionContextProvider'
 import { SocketContext } from '../../contexts/SocketContextProvider'
 import { UserContext } from '../../contexts/UserContextProvider'
@@ -57,10 +56,12 @@ const AuctionDetail = (props) => {
           <img className="item-detail-img border border-secondary p-2 rounded" src={auctionItem.item_image} alt="mriduava@gmail.com" />
           <div className="mt-3">
             <h4 className="text-dark">{auctionItem.item_name}</h4>
+            <h6 className="text-secondary">{auctionItem.description}</h6>
             <hr />
             <div className="d-flex justify-content-between mt-3">
               <h6 className="text-secondary">Seller: <span className="text-uppercase text-success">{auctionItem.owner.name}</span></h6>
             </div>
+            
           </div>
         </Col>
         <Col lg="3" className="rounded border bg-light pb-5 mr-2">

@@ -18,11 +18,11 @@ public class AuctionItem {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String item_name;
+    private String description;
     @Column(nullable = true)
     private int owner_id;
     private String item_image;
     private int initial_price;
-    private int highest_bid;
     private long start_date;
     private long stop_date;
     @OneToOne

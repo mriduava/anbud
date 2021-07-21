@@ -14,10 +14,11 @@ const CreateAd = (props) => {
 
   const today = new Date();
   const tomorrow = today.setDate(today.getDate()+1);
+  const oneMonth = today.setDate(today.getDate()+30);
   const [endDate, setEndDate] = useState(tomorrow);
 
-
   const [itemName, setItemName] = useState('')
+  const [description, setDescription] = useState('')
   const [imageUrl, setImageUrl] = useState('')
   const [initialPrice, setInitialPrice] = useState('')
 
@@ -29,6 +30,7 @@ const CreateAd = (props) => {
     let end_date = date.getTime()
     let data = {
       item_name: itemName,
+      description,
       item_image: imageUrl,
       initial_price: initialPrice,
       owner_id: user.id,
@@ -70,7 +72,9 @@ const CreateAd = (props) => {
           <hr />
           <form onSubmit={createAd}>
             <input type="text" className="mt-2 form-control" placeholder="Item name"
-               value={itemName} onChange={e=>setItemName(e.target.value)}/> 
+               value={itemName} onChange={e=>setItemName(e.target.value)}/>
+            <input type="text" className="mt-2 form-control" placeholder="Description"
+               value={description} onChange={e=>setDescription(e.target.value)}/> 
             <input type="text" className="form-control mt-1" placeholder="Image URL"
               value={imageUrl} onChange={e=>setImageUrl(e.target.value)}/>
             <input type="text" className="form-control mt-1" placeholder="Initial price"
@@ -80,7 +84,7 @@ const CreateAd = (props) => {
               <DatePicker className="px-2 py-1 border border-secondary rounded" locale="sv"
                 style={{ padding:'2px !important'}} selected={endDate}
                 onChange={date=>setEndDate(date)}
-                minDate={tomorrow} isClearable
+                minDate={tomorrow} isClearable maxDate={oneMonth}
                 showWeekNumbersshowTimeSelect showTimeSelect
                 timeFormat="p" timeIntervals={15} dateFormat="Pp"
                 showYearDropdown scrolllableMonthYearDropdown
