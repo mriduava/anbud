@@ -62,6 +62,13 @@ html {
   object-fit: cover;
 }
 
+.my-auctions-top{
+  border-bottom: 1px solid #d6c67d;
+  background: #f6efe9;  
+  background: -webkit-linear-gradient(to right, #d6c67d, #f7f6ed);
+  background: linear-gradient(to bottom, #d6c67d, #f7f6ed);
+}
+
 @media only screen and (max-width: 600px) {
   .card-image {
     width: 100%;

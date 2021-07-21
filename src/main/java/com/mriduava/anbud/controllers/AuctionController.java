@@ -36,4 +36,9 @@ public class AuctionController {
     public List<AuctionItem> getByItemName(@PathVariable String name) {
         return auctionService.getByItemName(name);
     }
+
+    @GetMapping("/myauctions/{ownerId}")
+    public List<AuctionItem> getByItemOwner(@PathVariable int ownerId) {
+        return auctionService.getAuctionByOwner(ownerId);
+    }
 }

@@ -12,4 +12,7 @@ import java.util.List;
 public interface AuctionRepo extends JpaRepository<AuctionItem, Long> {
     @Query(value = "SELECT * FROM auction_items WHERE item_name LIKE %:name%", nativeQuery = true)
     List<AuctionItem> findAuctionByName(@Param("name") String name);
+
+    @Query(value = "SELECT * FROM auction_items WHERE owner_id = :ownerId", nativeQuery = true)
+    List<AuctionItem> findAuctionByOwner(@Param("ownerId") int ownerId);
 }

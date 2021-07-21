@@ -41,4 +41,8 @@ public class AuctionService {
         return auctionRepo.findAuctionByName(item_name);
     }
 
+    public List<AuctionItem> getAuctionByOwner(int owner_id) {
+        return auctionRepo.findAuctionByOwner(owner_id);
+    }
+
 }

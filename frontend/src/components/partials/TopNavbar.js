@@ -66,6 +66,9 @@ const TopNavbar = () => {
                 <Link className="text-dark mx-lg-3 text-uppercase" to="/" style={{textDecoration:'none'}}>User: <span className="text-success">{user&&user.name}</span></Link>
               </NavItem>
               <NavItem>
+                <Link className="text-dark mx-lg-4" to="/myauction">MY AUCTIONS</Link>
+              </NavItem>
+              <NavItem>
                 <Link className="text-dark ml-lg-2" onClick={logoutUser} to="/"> LOGOUT</Link>
               </NavItem>
             </div>
