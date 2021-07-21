@@ -62,6 +62,7 @@ const AuctionContextProvider = (props) => {
 
   const values = {
     auctionItems,
+    setAuctionItems,
     fetchAllAuctionItems,
     fetchOneAuctionItem,
     auctionItem,
