@@ -1,0 +1,51 @@
+ANBUD APPLICATION
+=================
+
+BACKEND: Java Spring
+http://localhost:9000
+
+FRONTEND: React
+http://localhost:3000
+
+
+TRELLO
+https://trello.com/b/80tC6wuM/anbud
+
+WIREFRAME
+https://xd.adobe.com/view/57ebe4f1-8f2e-47bb-ba9e-43e621326777-02b8/
+
+
+APIs
+=======
+AUCTIONS
+--------------------------------
+GET
+http://localhost:9000/api/auctions
+
+POST
+http://localhost:9000/api/auctions
+
+Auction by ID
+http://localhost:9000/api/auctions/{id}
+
+BIDS
+--------------------------------
+GET
+http://localhost:9000/api/bids
+
+POST
+http://localhost:9000/api/bids
+
+GET
+http://localhost:900/api/bids/{auctionId}
+
+USERS
+---------------------------------
+GET
+http://localhost:9000/auth/user
+
+POST
+http://localhost:9000/api/register
+
+
+
